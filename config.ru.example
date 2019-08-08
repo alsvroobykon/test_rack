@@ -1,0 +1,15 @@
+require_relative 'lib/greeter'
+use Rack::Reloader, 0
+
+use Rack::Auth::Basic do |username, password|
+  password == '*****'
+  username == '*****'
+end
+
+#run Greeter  - will not pull up dependencies from the public folder
+# solution for it -
+run Rack::Cascade.new([Rack::File.new('public') ,Greeter])
+
+
+#run in console  -  user@rs-01-O:~/RubymineProjects/rack$ rackup -Ilib !!!!!!!!!!!!!!!!!!!!!!!!
+
